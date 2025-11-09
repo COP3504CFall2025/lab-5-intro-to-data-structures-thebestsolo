@@ -113,7 +113,7 @@ public:
 		delete temp;
 		return true;
 	}
-	void Clear()
+	void clear()
 	{
 		while(removeHead());
 	}
@@ -121,7 +121,15 @@ public:
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept
 	{
-
+		if(this != &other)
+		{
+			clear();
+			head = other.head;
+			tail = other.tail;
+			count = other.count;
+			other.clear();
+		}
+		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs);
 
@@ -155,7 +163,7 @@ public:
 	}
 	~LinkedList()
 	{
-		Clear();
+		clear();
 	}
 
 private:
@@ -163,7 +171,6 @@ private:
 	Node* head;
 	Node* tail;
 	unsigned int count;
-
 };
 
 
