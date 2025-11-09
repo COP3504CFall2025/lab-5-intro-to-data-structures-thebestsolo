@@ -157,7 +157,20 @@ public:
 		}
 		return *this;
 	}
-	LinkedList<T>& operator=(const LinkedList<T>& rhs);
+	LinkedList<T>& operator=(const LinkedList<T>& rhs)
+	{
+		if(this != &rhs)
+		{
+			clear();
+			Node* current = rhs.head;
+			while(current != nullptr)
+			{
+				addTail(current->data);
+				current = current->next;
+			}
+		}
+		return *this;
+	}
 
 	// Construction/Destruction
 	LinkedList()
