@@ -10,7 +10,7 @@ class ABDQ : public DequeInterface<T> {
 private:
     T* data_;                 // underlying dynamic array
     std::size_t capacity_;    // total allocated capacity
-    std::size_t size_;        // number of stored elements
+    std::size_t curr_size_;        // number of stored elements
     std::size_t front_;       // index of front element
     std::size_t back_;        // index after the last element (circular)
 
