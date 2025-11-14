@@ -11,18 +11,45 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLQ();
+    LLQ() : list(LinkedList<T>()) {}
 
     // Insertion
-    void enqueue(const T& item) override;
+    void enqueue(const T& item) override
+    {
+        list.addTail(item);
+    }
 
     // Deletion
-    T dequeue() override;
+    T dequeue() override
+    {
+        if(list.getCount() == 0)
+        {
+            return nullptr;
+        }
+        T value = list.getHead()->data;
+        list.removeHead();
+        return value;
+    }
 
     // Access
-    T peek() const override;
+    T peek() const override
+    {
+        return list.getHead()->data;
+    }
 
     // Getter
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override
+    {
+        return list.getCount();
+    }
 
+    void PrintForward() const
+    {
+        list.printForward();
+    }
+
+    void PrintReverse() const
+    {
+        list.printReverse();
+    }
 };
