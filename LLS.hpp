@@ -22,10 +22,6 @@ public:
     // Deletion
     T pop() override
     {
-        if(list.getCount == 0)
-        {
-            return nullptr;
-        }
         T value = list.getHead()->data;
         list.removeHead();
         return value;
@@ -34,10 +30,6 @@ public:
     // Access
     T peek() const override
     {
-        if(list.getCount() == 0)
-        {
-            return nullptr;
-        }
         return list.getHead()->data;
     }
 

@@ -52,18 +52,10 @@ public:
     // Element Accessors
     const T& front() const override
     {
-        if(list.getCount() == 0)
-        {
-            return nullptr;
-        }
         return list.getHead()->data;
     }
     const T& back() const override
     {
-        if(list.getCount() == 0)
-        {
-            return nullptr;
-        }
         return list.getTail()->data;
     }
 
