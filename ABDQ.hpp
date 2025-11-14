@@ -18,13 +18,13 @@ private:
 
     void resize()
     {
-        T* new_array = new T[capacity_ * SCALE_FACTOR];
+        capacity_ *= scale_factor_;
+        T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
             new_array[i] = array_[i];
         }
         delete[] array_;
         array_ = new_array;
-        capacity_ *= 2;
     }
 
 public:
@@ -112,11 +112,11 @@ public:
         if (curr_size_ == 0) {
             throw std::runtime_error("Empty");
         }
+        curr_size_--;
         T element = std::move(array_[0]);
         for (std::size_t i = 1; i < curr_size_; ++i) {
             array_[i - 1] = array_[i];
         }
-        curr_size_--;
         return element;
     }
     T popBack() override

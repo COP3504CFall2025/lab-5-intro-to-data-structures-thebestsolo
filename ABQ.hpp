@@ -17,13 +17,13 @@ class ABQ : public QueueInterface<T>{
 
     void resize()
     {
-        T* new_array = new T[capacity_ * scale_factor_];
+        capacity_ *= scale_factor_;
+        T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
             new_array[i] = array_[i];
         }
         delete[] array_;
         array_ = new_array;
-        capacity_ *= 2;
     }
 
 public:
