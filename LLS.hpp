@@ -32,7 +32,7 @@ public:
     {
         if(list.getCount() == 0)
         {
-            throw std::out_of_range("Empty");
+            throw std::runtime_error("Empty");
         }
         return list.getHead()->data;
     }
