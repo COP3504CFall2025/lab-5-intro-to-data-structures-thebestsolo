@@ -22,6 +22,10 @@ public:
     // Deletion
     T pop() override
     {
+        if(list.getCount() == 0)
+        {
+            throw std::runtime_error("Empty");
+        }
         T value = list.getHead()->data;
         list.removeHead();
         return value;
