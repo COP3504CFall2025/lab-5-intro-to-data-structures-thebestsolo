@@ -8,7 +8,7 @@
 template <typename T>
 class ABDQ : public DequeInterface<T> {
 private:
-    T* data_;                 // underlying dynamic array
+    T* array_;                 // underlying dynamic array
     std::size_t capacity_;    // total allocated capacity
     std::size_t curr_size_;        // number of stored elements
     std::size_t front_;       // index of front element
