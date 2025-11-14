@@ -7,10 +7,10 @@
 template <typename T>
 class StackInterface {
 public:
-    void push(const T& item) = 0;
-    T pop() = 0;
-    T peek() const = 0;
-    std::size_t getSize() const noexcept = 0;
+    void push(const T& item);
+    T pop();
+    T peek() const;
+    std::size_t getSize() const noexcept;
 private:
     T* data;
     int size;
