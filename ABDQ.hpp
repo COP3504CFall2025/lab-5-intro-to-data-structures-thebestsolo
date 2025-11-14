@@ -27,6 +27,17 @@ private:
         array_ = new_array;
     }
 
+    void downsize()
+    {
+        capacity_ /= scale_factor_;
+        T* new_array = new T[capacity_];
+        for (size_t i = 0; i < curr_size_; ++i) {
+            new_array[i] = array_[i];
+        }
+        delete[] array_;
+        array_ = new_array;
+    }
+
 public:
     // Big 5 + Parameterized Constructor
     ABDQ() : array_(new T[1]), capacity_(1), curr_size_(0), front_(0), back_(0) {}
@@ -123,6 +134,9 @@ public:
             throw std::runtime_error("Empty");
         }
         curr_size_--;
+        if (curr_size_ <= capacity_ / SCALE_FACTOR) {
+            downsize();
+        }
         T element = std::move(array_[front_]);
         for (std::size_t i = 1; i < curr_size_; ++i) {
             array_[i - 1] = array_[i];
@@ -135,6 +149,9 @@ public:
             throw std::runtime_error("Empty");
         }
         curr_size_--;
+        if (curr_size_ <= capacity_ / SCALE_FACTOR) {
+            downsize();
+        }
         T element = std::move(array_[back_]);
         return element;
     }

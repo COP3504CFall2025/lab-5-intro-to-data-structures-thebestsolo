@@ -109,6 +109,9 @@ public:
             throw std::runtime_error("Empty");
         }
         curr_size_--;
+        if (curr_size_ <= capacity_ / scale_factor_) {
+            downsize();
+        }
         T element = std::move(array_[curr_size_]);
         return element;
     }
@@ -122,6 +125,17 @@ private:
     void resize()
     {
         capacity_ *= scale_factor_;
+        T* new_array = new T[capacity_];
+        for (size_t i = 0; i < curr_size_; ++i) {
+            new_array[i] = array_[i];
+        }
+        delete[] array_;
+        array_ = new_array;
+    }
+    
+    void downsize()
+    {
+        capacity_ /= scale_factor_;
         T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
             new_array[i] = array_[i];
