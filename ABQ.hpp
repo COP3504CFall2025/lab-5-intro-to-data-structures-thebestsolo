@@ -139,7 +139,7 @@ public:
             array_[i - 1] = array_[i];
         }
         curr_size_--;
-        if (curr_size_ * 4 <= capacity_ && curr_size_ > 0) {
+        if (curr_size_ * 4 <= capacity_) {
             downsize();
         }
         return value;
