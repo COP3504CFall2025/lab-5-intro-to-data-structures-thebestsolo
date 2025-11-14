@@ -32,7 +32,7 @@ public:
     {
         if(list.getCount() == 0)
         {
-            return nullptr;
+            throw std::out_of_range("Empty");
         }
         T value = list.getHead()->data;
         list.removeHead();
@@ -42,7 +42,7 @@ public:
     {
         if(list.getCount() == 0)
         {
-            return nullptr;
+            throw std::out_of_range("Empty");
         }
         T value = list.getTail()->data;
         list.removeTail();

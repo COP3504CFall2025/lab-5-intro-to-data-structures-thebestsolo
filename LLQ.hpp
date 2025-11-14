@@ -22,6 +22,10 @@ public:
     // Deletion
     T dequeue() override
     {
+        if(list.getCount() == 0)
+        {
+            throw std::out_of_range("Empty");
+        }
         T value = list.getHead()->data;
         list.removeHead();
         return value;
@@ -30,6 +34,10 @@ public:
     // Access
     T peek() const override
     {
+        if(list.getCount() == 0)
+        {
+            throw std::out_of_range("Empty");
+        }
         return list.getHead()->data;
     }
 
