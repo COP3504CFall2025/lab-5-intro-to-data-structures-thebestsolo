@@ -115,6 +115,7 @@ public:
         for (std::size_t i = curr_size_; i > 0; --i) {
             array_[back_] = array_[i - 1];
         }
+        front_ = (front_ + capacity_ - 1) % capacity_;
         array_[front_] = item;
         curr_size_++;
     }
@@ -124,6 +125,7 @@ public:
             resize();
         }
         array_[back_] = item;
+        back_ = (back_ + 1) % capacity_;
         curr_size_++;
     }
 
@@ -133,11 +135,11 @@ public:
         if (curr_size_ == 0) {
             throw std::runtime_error("Empty");
         }
+        T element = std::move(array_[front_]);
         curr_size_--;
-        if (curr_size_ * 4 <= capacity_) {
+        if (curr_size_ * 4 <= capacity_ && curr_size_ > 0 && curr_size_ > 0) {
             downsize();
         }
-        T element = std::move(array_[front_]);
         for (std::size_t i = 1; i < curr_size_; ++i) {
             array_[i - 1] = array_[i];
         }
@@ -149,7 +151,7 @@ public:
             throw std::runtime_error("Empty");
         }
         curr_size_--;
-        if (curr_size_ * 4 <= capacity_) {
+        if (curr_size_ * 4 <= capacity_ && curr_size_ > 0) {
             downsize();
         }
         T element = std::move(array_[back_]);
@@ -159,11 +161,17 @@ public:
     // Access
     const T& front() const override
     {
+        if (curr_size_ == 0) {
+            throw std::runtime_error("Empty");
+        }
         return array_[front_];
     }
     const T& back() const override
     {
-        return array_[back_];
+        if (curr_size_ == 0) {
+            throw std::runtime_error("Empty");
+        }
+        return array_[(back_ + capacity_ - 1) % capacity_];
     }
 
     // Getters
