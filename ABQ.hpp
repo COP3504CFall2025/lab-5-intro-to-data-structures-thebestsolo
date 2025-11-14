@@ -46,10 +46,6 @@ public:
         capacity_ = other.capacity_;
         curr_size_ = other.curr_size_;
         array_ = new T[capacity_];
-        if(capacity_ >= curr_size_ / 2)
-        {
-            downsize();
-        }
         for (size_t i = 0; i < curr_size_; ++i) {
             array_[i] = other.array_[i];
         }
@@ -63,10 +59,6 @@ public:
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
         array_ = new T[capacity_];
-        if(capacity_ >= curr_size_ / 2)
-        {
-            downsize();
-        }
         for (size_t i = 0; i < curr_size_; ++i) {
             array_[i] = rhs.array_[i];
         }
@@ -77,10 +69,6 @@ public:
         capacity_ = other.capacity_;
         curr_size_ = other.curr_size_;
         array_ = other.array_;
-        if(capacity_ >= curr_size_ / 2)
-        {
-            downsize();
-        }
         other.array_ = nullptr;
         other.capacity_ = 0;
         other.curr_size_ = 0;
@@ -94,10 +82,6 @@ public:
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
         array_ = rhs.array_;
-        if(capacity_ >= curr_size_ / 2)
-        {
-            downsize();
-        }
         rhs.array_ = nullptr;
         rhs.capacity_ = 0;
         rhs.curr_size_ = 0;
@@ -155,7 +139,7 @@ public:
             array_[i - 1] = array_[i];
         }
         curr_size_--;
-        if (curr_size_ <= capacity_ / scale_factor_) {
+        if (curr_size_ * 4 <= capacity_) {
             downsize();
         }
         return value;
