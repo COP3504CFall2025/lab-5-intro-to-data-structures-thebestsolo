@@ -12,7 +12,6 @@ template <typename T>
 class LLDQ : public DequeInterface<T> {
 private:
     LinkedList<T> list;
-
 public:
     // Constructor
     LLDQ() : list(LinkedList<T>()) {}
