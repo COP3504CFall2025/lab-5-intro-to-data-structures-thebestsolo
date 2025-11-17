@@ -18,24 +18,30 @@ private:
 
     void resize()
     {
+        size_t old_cap = capacity_;
         capacity_ *= SCALE_FACTOR;
         T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
-            new_array[i] = array_[i];
+            new_array[i] = array_[(front_ + i) % old_cap];
         }
         delete[] array_;
         array_ = new_array;
+        front_ = 0;
+        back_ = curr_size_;
     }
 
     void downsize()
     {
+        size_t old_cap = capacity_;
         capacity_ /= SCALE_FACTOR;
         T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
-            new_array[i] = array_[i];
+            new_array[i] = array_[(front_ + i) % old_cap];
         }
         delete[] array_;
         array_ = new_array;
+        front_ = 0;
+        back_ = curr_size_;
     }
 
 public:
@@ -112,9 +118,6 @@ public:
         if (curr_size_ == capacity_) {
             resize();
         }
-        for (std::size_t i = curr_size_; i > 0; --i) {
-            array_[back_] = array_[i - 1];
-        }
         front_ = (front_ + capacity_ - 1) % capacity_;
         array_[front_] = item;
         curr_size_++;
@@ -136,12 +139,10 @@ public:
             throw std::runtime_error("Empty");
         }
         T element = std::move(array_[front_]);
+        front_ = (front_ + 1) % capacity_;
         curr_size_--;
         if (curr_size_ * 4 <= capacity_ && curr_size_ > 0 && curr_size_ > 0) {
             downsize();
-        }
-        for (std::size_t i = 1; i < curr_size_; ++i) {
-            array_[i - 1] = array_[i];
         }
         return element;
     }
@@ -150,11 +151,12 @@ public:
         if (curr_size_ == 0) {
             throw std::runtime_error("Empty");
         }
+        T element = std::move(array_[back_]);
+        back_ = (back_ + capacity_ - 1) % capacity_;
         curr_size_--;
         if (curr_size_ * 4 <= capacity_ && curr_size_ > 0) {
             downsize();
         }
-        T element = std::move(array_[back_]);
         return element;
     }
 
