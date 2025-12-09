@@ -54,10 +54,10 @@ public:
         curr_size_ = other.curr_size_;
         array_ = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
-            array_[i] = other.array_[i];
+            array_[i] = other.array_[(other.front_ + i) % other.capacity_];
         }
-        front_ = other.front_;
-        back_ = other.back_;
+        front_ = 0;
+        back_ = curr_size_;
     }
     ABDQ& operator=(const ABDQ& rhs)
     {
@@ -141,7 +141,7 @@ public:
         T element = std::move(array_[front_]);
         front_ = (front_ + 1) % capacity_;
         curr_size_--;
-        if (curr_size_ * 4 <= capacity_ && curr_size_ > 0 && curr_size_ > 0) {
+        if (curr_size_ * 4 <= capacity_ && curr_size_ > 0) {
             downsize();
         }
         return element;
@@ -151,7 +151,7 @@ public:
         if (curr_size_ == 0) {
             throw std::runtime_error("Empty");
         }
-        T element = std::move(array_[back_]);
+        T element = std::move(array_[(back_ + capacity_ - 1) % capacity_]);
         back_ = (back_ + capacity_ - 1) % capacity_;
         curr_size_--;
         if (curr_size_ * 4 <= capacity_ && curr_size_ > 0) {
