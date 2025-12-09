@@ -11,7 +11,7 @@ template<typename T>
 class ABS : public StackInterface<T> {
 public:
     // Big 5 + Parameterized Constructor
-    ABS() : array_(new T[1]), capacity_(1), curr_size_(0) {}
+    ABS() : capacity_(1), curr_size_(0), array_(new T[1]) {}
     explicit ABS(const size_t capacity) : array_(new T[capacity]), capacity_(capacity), curr_size_(0) {}
     ABS(const ABS& other)
     {
@@ -106,10 +106,10 @@ public:
             throw std::runtime_error("Empty");
         }
         curr_size_--;
+        T element = std::move(array_[curr_size_]);
         if (curr_size_ * 4 < capacity_ && curr_size_ > 0) {
             downsize();
         }
-        T element = std::move(array_[curr_size_]);
         return element;
     }
 
