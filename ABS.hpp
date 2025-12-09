@@ -107,7 +107,7 @@ public:
         }
         curr_size_--;
         T element = std::move(array_[curr_size_]);
-        if (curr_size_ * 4 < capacity_ && curr_size_ > 0) {
+        if (curr_size_ * 4 < capacity_ && capacity_ > 2) {
             downsize();
         }
         return element;
