@@ -82,7 +82,7 @@ public:
         array_ = other.array_;
         front_ = other.front_;
         back_ = other.back_;
-        
+
         other.array_ = nullptr;
         other.capacity_ = 0;
         other.curr_size_ = 0;
@@ -98,6 +98,9 @@ public:
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
         array_ = rhs.array_;
+        front_ = rhs.front_;
+        back_ = rhs.back_;
+
         rhs.array_ = nullptr;
         rhs.capacity_ = 0;
         rhs.curr_size_ = 0;
