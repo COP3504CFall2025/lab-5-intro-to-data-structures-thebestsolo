@@ -80,6 +80,9 @@ public:
         capacity_ = other.capacity_;
         curr_size_ = other.curr_size_;
         array_ = other.array_;
+        front_ = other.front_;
+        back_ = other.back_;
+        
         other.array_ = nullptr;
         other.capacity_ = 0;
         other.curr_size_ = 0;
