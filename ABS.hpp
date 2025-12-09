@@ -107,7 +107,7 @@ public:
         }
         curr_size_--;
         T element = std::move(array_[curr_size_]);
-        if (curr_size_ * 4 < capacity_ && capacity_ > 1)
+        if (curr_size_ * 4 <= capacity_ && capacity_ > 1)
         {
             downsize();
         }
@@ -133,11 +133,7 @@ private:
     
     void downsize()
     {
-        capacity_ /= scale_factor_;
-        if (capacity_ < 1)
-        {
-            capacity_ = 1;
-        }
+        capacity_ = std::max(capacity_ / scale_factor_, (size_t)1);
         T* new_array = new T[capacity_];
         for (size_t i = 0; i < curr_size_; ++i) {
             new_array[i] = array_[i];
